@@ -1,0 +1,42 @@
+# Виртуальное окружение
+venv/
+ENV/
+env/
+.venv/
+
+# Файлы окружения
+.env
+.env.*
+
+# База данных SQLite
+*.sqlite3
+*.db
+*.db-journal
+
+# Кеш Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+#настройки настройки
+*settings*.py
+*.log
+
+# Конфигурации IDE
+.vscode/
+.idea/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+
+# Кеш и сборки
+*.bak
+*.tmp
+*.swp
+*.lock
+build/
+dist/
+*.egg-info/
