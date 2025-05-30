@@ -5,14 +5,20 @@ from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 
 
-def post_list(request):
-    posts = Post.published.all()
-    paginator = Paginator(posts, 3)
+def post_list(request, tag_slug=None):
+    list_of_posts = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        list_of_posts = list_of_posts.filter(tags__in=[tag])
+
+    paginator = Paginator(list_of_posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'blog/post/list.html', {'posts': posts, 'page_obj': page_obj})
+    return render(request, 'blog/post/list.html', {'page_obj': page_obj, 'tag': tag})
 
 
 def post_detail(request, year, month, day, post_slug):
